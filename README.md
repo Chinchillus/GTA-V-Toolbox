@@ -3,7 +3,7 @@
 - Auto creating dlclist
 - Asynchronously moving mod files* from GTA V folder and into it
 
-The dlclist is created and ready to copy, function under button "dc"\
+The dlclist is created and ready to copy, function under button "dc"
 
 It moves only files that AREN'T in the default file list, for example it will move "mods" folder and "ScriptHookV.dll" from the game folder, but it will not touch "x64.rpf" and other archives (keep in mind if you modded archives OUTSIDE of the mods folder, it will not work because it skips folders and files by their names, it cant detect that you modded an archive outside of the mods folder)
 
