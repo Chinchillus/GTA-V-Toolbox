@@ -9,7 +9,7 @@ import threading
 import time
 
 app = tk.Tk()
-app.title("CGT®")
+app.title("CMM®")
 app.resizable(False, False)
 
 MODS_TO_EXCLUDE = set([
@@ -20,7 +20,7 @@ MODS_TO_EXCLUDE = set([
     "bink2w64.dll", "d3dcompiler.dll", "d3dcsx.dll", "GFSDK_ShadowLib.win64.dll", "GFSDK_TXAA.win64.dll",
     "GFSDK_TXAA_AlphaResolve.win64.dll", "GPUPerfAPIDX11-x64.dll", "NvPmApi.Core.win64.dll", "version.txt",
     "index.bin", "d3dcompiler_46.dll", "d3dcsx_46.dll", "PlayGTAV.exe", "uninstall.exe", "commandline.txt",
-    "zlib1.dll", "toxmod.dll", "opusenc.dll", "opus.dll", "libcurl.dll", "fvad.dll",
+    "zlib1.dll", "toxmod.dll", "opusenc.dll", "opus.dll", "libcurl.dll", "fvad.dll", "title.rgl",
 ])
 
 FOLDERS_TO_EXCLUDE = set(["ReadMe", "Redistributables", "update", "x64"])
