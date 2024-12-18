@@ -1,4 +1,3 @@
-# Created by chinchill (discord) please do not reupload, copy, change, modify without my consent, thanks :)
 import os
 import shutil
 import subprocess
@@ -9,7 +8,7 @@ import threading
 import time
 
 app = tk.Tk()
-app.title("CMM®")
+app.title("CMM")
 app.resizable(False, False)
 
 MODS_TO_EXCLUDE = set([
@@ -20,14 +19,15 @@ MODS_TO_EXCLUDE = set([
     "bink2w64.dll", "d3dcompiler.dll", "d3dcsx.dll", "GFSDK_ShadowLib.win64.dll", "GFSDK_TXAA.win64.dll",
     "GFSDK_TXAA_AlphaResolve.win64.dll", "GPUPerfAPIDX11-x64.dll", "NvPmApi.Core.win64.dll", "version.txt",
     "index.bin", "d3dcompiler_46.dll", "d3dcsx_46.dll", "PlayGTAV.exe", "uninstall.exe", "commandline.txt",
-    "zlib1.dll", "toxmod.dll", "opusenc.dll", "opus.dll", "libcurl.dll", "fvad.dll", "title.rgl",
+    "zlib1.dll", "toxmod.dll", "opusenc.dll", "opus.dll", "libcurl.dll", "fvad.dll", "title.rgl", "libtox.dll",
+    "GTA5_BE.exe",
 ])
 
-FOLDERS_TO_EXCLUDE = set(["ReadMe", "Redistributables", "update", "x64"])
+FOLDERS_TO_EXCLUDE = set(["ReadMe", "Redistributables", "update", "x64","BattlEye"])
 
 translations = {
     "en": {
-        "title": "CMM®",
+        "title": "CMM",
         "source_folder": "Folder with mods:",
         "destination_folder": "Destination Folder:",
         "move_button": "Move Mods",
@@ -37,7 +37,7 @@ translations = {
         "success": "Success!",
     },
     "pl": {
-        "title": "CMM®",
+        "title": "CMM",
         "source_folder": "Folder z modami:",
         "destination_folder": "Folder docelowy:",
         "move_button": "Przenieś mody",
@@ -47,7 +47,7 @@ translations = {
         "success": "Sukces!",
     },
 }
-current_language = "pl"  # Default language
+current_language = "pl"
 
 def select_gta_v_directory():
     gta_v_directory = filedialog.askdirectory(title=translations[current_language]["select_game_folder"])
@@ -78,7 +78,7 @@ def move_mod(mod, src_directory, dst_directory, pbar, progress_label, current_fi
 
 def move_mods(mods, src_directory, dst_directory, pbar, progress_label, current_file_label):
     total_mods = len(mods)
-    current_file_label.config(text="")  # Set the initial text to an empty string
+    current_file_label.config(text="")
 
     for i, mod in enumerate(mods):
         current_progress = (i + 1) / total_mods * 100
@@ -86,7 +86,6 @@ def move_mods(mods, src_directory, dst_directory, pbar, progress_label, current_
         file_name = f"{mod}"
         current_file_label.config(text=file_name)
 
-        # Calculate the initial x position for the label to center it
         label_x = (app.winfo_width() - current_file_label.winfo_reqwidth()) / 2
         current_file_label.place(x=label_x, y=185)
 
@@ -131,7 +130,6 @@ def swap_directories():
     gta_v_directory = gta_v_entry.get()
     destination_directory = destination_entry.get()
 
-    # Swap the values between the two entry widgets
     gta_v_entry.delete(0, tk.END)
     gta_v_entry.insert(0, destination_directory)
     destination_entry.delete(0, tk.END)
@@ -184,9 +182,9 @@ def select_directory():
 
 def open_dlclist(file_path):
     try:
-        if os.name == 'nt':  # Check if running on Windows
+        if os.name == 'nt':
             os.startfile(file_path)
-        elif os.name == 'posix':  # Check if running on Linux or macOS
+        elif os.name == 'posix': 
             subprocess.run(["xdg-open", file_path], check=True)
     except Exception as e:
         print(f"Error opening dlclist.txt: {e}")
