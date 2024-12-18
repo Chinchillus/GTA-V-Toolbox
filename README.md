@@ -1,3 +1,5 @@
+# Works on latest patch (Currently 1.0.3411.0)
+
 # Current features:
 - Changing languages (English and Polish are currently supported)
 - Auto creating dlclist
@@ -22,6 +24,12 @@ It is repacked using "onefile" mode in PyInstaller, it firstly needs to unpack t
 sw - swap\
 dc - dlclist creator 
 
+# How to compile
+Install the dependecies and PyInstaller using this command\
+"pip install pyinstaller ttkthemes"\
+\
+Download "modmover.py" from this repository\
+Run a command in the same folder as modmover.py file "python -m PyInstaller --clean --onefile -w modmover.py"
 
 # License
 This repository uses MIT License 
