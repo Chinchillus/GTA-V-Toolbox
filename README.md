@@ -7,9 +7,9 @@ The dlclist is created and ready to copy, function under button "dc"
 
 It moves only files that AREN'T in the default file list, for example it will move "mods" folder and "ScriptHookV.dll" from the game folder, but it will not touch "x64.rpf" and other archives (keep in mind if you modded archives OUTSIDE of the mods folder, it will not work because it skips folders and files by their names, it cant detect that you modded an archive outside of the mods folder)
 
-# Planned features and things to do
-- Auto unpacking and installing addon mods
-- Complete rewrite it in C#
+# Features that would be nice to do
+- Auto unpacking and installing addon mods 
+- Auto copy dlclist to clipboard instead of creating it as a file
 
 # FAQ
 - Why does it show viruses when scanned in virustotal?\
