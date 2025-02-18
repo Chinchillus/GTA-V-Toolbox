@@ -6,12 +6,13 @@ from tkinter import filedialog, messagebox, ttk
 from ttkthemes import ThemedStyle
 import threading
 import time
+import pyperclip
 
 app = tk.Tk()
 app.title("CMM")
 app.resizable(False, False)
 
-MODS_TO_EXCLUDE = set([
+FILES_TO_EXCLUDE = set([
     "x64a.rpf", "x64b.rpf", "x64c.rpf", "x64d.rpf", "x64e.rpf", "x64f.rpf", "x64g.rpf", "x64h.rpf",
     "x64i.rpf", "x64j.rpf", "x64k.rpf", "x64l.rpf", "x64m.rpf", "x64n.rpf", "x64o.rpf", "x64p.rpf",
     "x64q.rpf", "x64r.rpf", "x64s.rpf", "x64t.rpf", "x64u.rpf", "x64v.rpf", "x64w.rpf", "x64x.rpf",
@@ -35,6 +36,7 @@ translations = {
         "select_game_folder": "Select Game Folder",
         "select_destination_folder": "Select Destination Folder",
         "success": "Success!",
+        "dlc_copy_success": "DLC list copied to clipboard!",
     },
     "pl": {
         "title": "CMM",
@@ -45,6 +47,7 @@ translations = {
         "select_game_folder": "Wybierz folder z GTA V",
         "select_destination_folder": "Wybierz folder docelowy",
         "success": "Sukces!",
+        "dlc_copy_success": "Lista DLC została skopiowana do schowka!"
     },
 }
 current_language = "pl"
@@ -106,7 +109,7 @@ def move_mods_async_handler():
         return
 
     mods = os.listdir(gta_v_directory)
-    mods_to_move = [mod for mod in mods if mod not in MODS_TO_EXCLUDE and mod not in FOLDERS_TO_EXCLUDE]
+    mods_to_move = [mod for mod in mods if mod not in FILES_TO_EXCLUDE and mod not in FOLDERS_TO_EXCLUDE]
 
     progress_var = tk.DoubleVar()
     progress_bar = ttk.Progressbar(app, mode="determinate", variable=progress_var, maximum=len(mods_to_move))
@@ -163,33 +166,17 @@ def create_transparent_label(parent, x, y, text):
     label.place(x=x, y=y)
     return label
 
-def create_dlclist_txt(directory_path):
-    dlclist_path = os.path.join(directory_path, "dlclist.txt")
-    try:
-        with open(dlclist_path, "w") as file:
-            for folder_name in os.listdir(directory_path):
-                if os.path.isdir(os.path.join(directory_path, folder_name)):
-                    file.write(f"\t\t<Item>dlcpacks:/{folder_name}/</Item>\n")
-        return dlclist_path
-    except Exception as e:
-        return str(e)
+def copy_dlclist_to_clipboard():
+    directory_path = filedialog.askdirectory(title="Select Directory")
+    if directory_path:
+        dlc_list = "\n".join(f"\t\t<Item>dlcpacks:/{folder}/</Item>" for folder in os.listdir(directory_path) if os.path.isdir(os.path.join(directory_path, folder)))
+        pyperclip.copy(dlc_list)
+        messagebox.showinfo(translations[current_language]["success"], translations[current_language]["dlc_copy_success"])
 
 def select_directory():
     directory_path = filedialog.askdirectory(title="Select Directory")
-    if directory_path:
-        result = create_dlclist_txt(directory_path)
-        open_dlclist(result)
 
-def open_dlclist(file_path):
-    try:
-        if os.name == 'nt':
-            os.startfile(file_path)
-        elif os.name == 'posix': 
-            subprocess.run(["xdg-open", file_path], check=True)
-    except Exception as e:
-        print(f"Error opening dlclist.txt: {e}")
-
-select_button = ttk.Button(app, text="dc", command=select_directory, width=3)
+select_button = ttk.Button(app, text="dc", command=copy_dlclist_to_clipboard, width=3)
 select_button.place(x=37, y= 190)
 
 english_button = ttk.Button(app, text="EN", command=switch_to_english, width=3)
