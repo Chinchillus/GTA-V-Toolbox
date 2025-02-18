@@ -11,7 +11,6 @@ It moves only files that AREN'T in the default file list, for example it will mo
 
 # Features that would be nice to do
 - Auto unpacking and installing addon mods 
-- Auto copy dlclist to clipboard instead of creating it as a file
 
 # FAQ
 - Why does it show viruses when scanned in virustotal?\
